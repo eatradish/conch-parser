@@ -652,6 +652,15 @@ where
                         RemoveLargestPrefix(p, w) => {
                             ParameterSubstitution::RemoveLargestPrefix(map_param(p), map!(w))
                         }
+                        ReplaceString(p, w) => {
+                            ParameterSubstitution::ReplaceString(map_param(p), map!(w))
+                        }
+                        ReplaceStringAll(p, w) => {
+                            ParameterSubstitution::ReplaceStringAll(map_param(p), map!(w))
+                        }
+                        Substring(p, w) => {
+                            ParameterSubstitution::Substring(map_param(p), map!(w))
+                        }
                     };
                     SimpleWord::Subst(Box::new(subst))
                 }

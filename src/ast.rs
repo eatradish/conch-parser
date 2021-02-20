@@ -81,6 +81,13 @@ pub enum ParameterSubstitution<P, W, C, A> {
     RemoveSmallestPrefix(P, Option<W>),
     /// Remove largest prefix pattern from a parameter's value, e.g. `${param##pattern}`
     RemoveLargestPrefix(P, Option<W>),
+    /// Replace specified pattern with specified value, e.g. `${param/pattern/replaced}`
+    ReplaceString(P, Option<W>),
+    /// Replace all the substrings with the specified pattern with a specified value, 
+    /// e.g. `${param//pattern/replaced}`
+    ReplaceStringAll(P, Option<W>),
+    /// Substring of specified value, e.g. `${param:0:3}`
+    Substring(P, Option<W>),
 }
 
 /// A type alias for the default hiearchy for representing shell words.

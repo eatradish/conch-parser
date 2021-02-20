@@ -1553,6 +1553,14 @@ impl<I: Iterator<Item = Token>, B: Builder> Parser<I, B> {
         });
 
         let op_pos = self.iter.pos();
+        match self.iter.peek() {
+            Some(Literal(_)) | Some(ParenOpen) => {
+                let lit = self.parameter_substitution_word_raw(curly_open_pos)?;
+                let ret = Substring(param, lit);
+                return Ok(SimpleWordKind::Subst(Box::new(ret)));
+            }
+            _ => (),
+        };
         let op = match self.iter.next() {
             Some(tok @ Dash) | Some(tok @ Equals) | Some(tok @ Question) | Some(tok @ Plus) => tok,
 
@@ -1642,6 +1650,20 @@ impl<I: Iterator<Item = Token>, B: Builder> Parser<I, B> {
                             _ => {
                                 let word = self.parameter_substitution_word_raw(curly_open_pos);
                                 RemoveSmallestSuffix(param, word?)
+                            }
+                        })
+                    }
+
+                    Some(&Slash) => {
+                        self.iter.next();
+                        eat_maybe!(self, {
+                            Slash => {
+                                let word = self.parameter_substitution_word_raw(curly_open_pos);
+                                ReplaceStringAll(param, word?)
+                            };
+                            _ => {
+                                let word = self.parameter_substitution_word_raw(curly_open_pos);
+                                ReplaceString(param, word?)
                             }
                         })
                     }

@@ -236,6 +236,13 @@ pub enum ParameterSubstitutionKind<W, C> {
     RemoveSmallestPrefix(DefaultParameter, Option<W>),
     /// Remove largest prefix pattern, e.g. `${param##pattern}`
     RemoveLargestPrefix(DefaultParameter, Option<W>),
+    /// Replace specified pattern with specified value, e.g. `${param/pattern/replaced}`
+    ReplaceString(DefaultParameter, Option<W>),
+    /// Replace all the substrings with the specified pattern with a specified value, 
+    /// e.g. `${param//pattern/replaced}`
+    ReplaceStringAll(DefaultParameter, Option<W>),
+    /// Substring of specified value, e.g. `${param:0:3}`
+    Substring(DefaultParameter, Option<W>),
 }
 
 /// Represents a parsed newline, more specifically, the presense of a comment
