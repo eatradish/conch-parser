@@ -243,6 +243,10 @@ pub enum ParameterSubstitutionKind<W, C> {
     ReplaceStringAll(DefaultParameter, Option<W>),
     /// Substring of specified value, e.g. `${param:0:3}`
     Substring(DefaultParameter, Option<W>),
+    /// Lowercase the matched value, e.g. `${param,,pattern}
+    Lowercase(bool, DefaultParameter, Option<W>),
+    /// Uppercase the matched value, e.g. `${param,,pattern}
+    Uppercase(bool, DefaultParameter, Option<W>),
 }
 
 /// Represents a parsed newline, more specifically, the presense of a comment

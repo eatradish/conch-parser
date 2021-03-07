@@ -88,6 +88,10 @@ pub enum ParameterSubstitution<P, W, C, A> {
     ReplaceStringAll(P, Option<W>),
     /// Substring of specified value, e.g. `${param:0:3}`
     Substring(P, Option<W>),
+    /// Lowercase the matched value, e.g. `${param,,pattern}
+    Lowercase(bool, P, Option<W>),
+    /// Uppercase the matched value, e.g. `${param^^pattern}
+    Uppercase(bool, P, Option<W>),
 }
 
 /// A type alias for the default hiearchy for representing shell words.

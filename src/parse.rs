@@ -1685,6 +1685,34 @@ impl<I: Iterator<Item = Token>, B: Builder> Parser<I, B> {
                         })
                     }
 
+                    Some(&Caret) => {
+                        self.iter.next();
+                        eat_maybe!(self, {
+                            Caret => {
+                                let word = self.parameter_substitution_word_raw(curly_open_pos);
+                                Uppercase(true, param, word?)
+                            };
+                            _ => {
+                                let word = self.parameter_substitution_word_raw(curly_open_pos);
+                                Uppercase(false, param, word?)
+                            }
+                        })
+                    }
+
+                    Some(&Comma) => {
+                        self.iter.next();
+                        eat_maybe!(self, {
+                            Comma => {
+                                let word = self.parameter_substitution_word_raw(curly_open_pos);
+                                Lowercase(true, param, word?)
+                            };
+                            _ => {
+                                let word = self.parameter_substitution_word_raw(curly_open_pos);
+                                Lowercase(false, param, word?)
+                            }
+                        })
+                    }
+
                     // In this case the found # is the parameter itself
                     Some(&Colon) | Some(&Dash) | Some(&Equals) | Some(&Question) | Some(&Plus)
                     | Some(&CurlyClose)

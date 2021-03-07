@@ -661,6 +661,12 @@ where
                         Substring(p, w) => {
                             ParameterSubstitution::Substring(map_param(p), map!(w))
                         }
+                        Lowercase(c, p, w) => {
+                            ParameterSubstitution::Lowercase(c, map_param(p), map!(w))
+                        }
+                        Uppercase(c, p, w) => {
+                            ParameterSubstitution::Uppercase(c, map_param(p), map!(w))
+                        }
                     };
                     SimpleWord::Subst(Box::new(subst))
                 }
